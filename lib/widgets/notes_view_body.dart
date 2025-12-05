@@ -13,7 +13,7 @@ class NotesViewBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: const [
           SizedBox(height: 50),
-          CustomAppBar(),
+          CustomAppBar(title: 'Notes', icon: Icons.search),
           Expanded(child: NotesListView()),
         ],
       ),
