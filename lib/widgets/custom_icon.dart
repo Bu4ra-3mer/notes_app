@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomIcon extends StatelessWidget {
-  const CustomIcon({super.key, required this.icon,this.onPressed});
+  const CustomIcon({super.key, required this.icon, this.onPressed});
   final IconData icon;
   final void Function()? onPressed;
   @override
@@ -14,7 +14,7 @@ class CustomIcon extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
       ),
       child: Center(
-        child: IconButton(onPressed: () {}, icon: Icon(icon, size: 28)),
+        child: IconButton(onPressed: onPressed, icon: Icon(icon, size: 28)),
       ),
     );
   }

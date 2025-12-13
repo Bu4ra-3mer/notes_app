@@ -4,6 +4,7 @@ import 'package:notes_app/cubits/cubit/notes_cubit_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/widgets/custom_app_bar.dart';
 import 'package:notes_app/widgets/custom_text_field.dart';
+import 'package:notes_app/widgets/edit_note_colors_list_view.dart';
 
 class EditNoteViewBody extends StatefulWidget {
   const EditNoteViewBody({super.key, required this.note});
@@ -12,9 +13,9 @@ class EditNoteViewBody extends StatefulWidget {
   @override
   State<EditNoteViewBody> createState() => _EditNoteViewBodyState();
 }
-
 class _EditNoteViewBodyState extends State<EditNoteViewBody> {
   String? title, content;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -23,30 +24,37 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
         children: [
           const SizedBox(height: 50),
           CustomAppBar(
-            onPressed: () {
+            onPressed: () async {  
               widget.note.title = title ?? widget.note.title;
               widget.note.subTitle = content ?? widget.note.subTitle;
-              widget.note.save();
+              
+              await widget.note.save();  
+              
+              if (!mounted) return;  
+              
               BlocProvider.of<NotesCubitCubit>(context).featchAllNotes();
+              Navigator.pop(context);
             },
             title: 'Edit Note',
             icon: Icons.check,
           ),
           const SizedBox(height: 50),
           CustomTextField(
-            onChanged: (p0) {
-              title = p0;
+            onChanged: (value) {
+              title = value;
             },
-            hintText: 'title',
+            hintText: widget.note.title,  
           ),
           const SizedBox(height: 30),
           CustomTextField(
-            onChanged: (p0) {
-              content = p0;
+            onChanged: (value) {
+              content = value;
             },
-            hintText: 'content',
+            hintText: widget.note.subTitle,  
             maxLines: 5,
           ),
+          const SizedBox(height: 30),
+          EditNoteColorsList(note: widget.note),
         ],
       ),
     );

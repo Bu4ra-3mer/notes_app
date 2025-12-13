@@ -8,4 +8,7 @@ sealed class NotesCubitState {}
 
 
  class NotesCubitSuccess extends NotesCubitState {
+  final List<NoteModel> notes;  
+  
+  NotesCubitSuccess(this.notes); 
 }
